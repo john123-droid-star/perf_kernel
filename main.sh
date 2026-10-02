@@ -249,6 +249,14 @@ if [[ $KSU_ENABLED == "false" ]]; then
     sed -i "s/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=\"-$KERNEL_NAME\"/" $DEVICE_DEFCONFIG_FILE
 fi
 
+# Disable Module Signature Enforcement
+msg "Disabling Module Signature Enforcement..."
+echo "CONFIG_MODULE_SIG=n" >> $DEVICE_DEFCONFIG_FILE
+echo "CONFIG_MODULE_SIG_FORCE=n" >> $DEVICE_DEFCONFIG_FILE
+sed -i 's/CONFIG_MODULE_SIG=y/CONFIG_MODULE_SIG=n/g' $DEVICE_DEFCONFIG_FILE
+sed -i 's/CONFIG_MODULE_SIG_FORCE=y/CONFIG_MODULE_SIG_FORCE=n/g' $DEVICE_DEFCONFIG_FILE
+
+
 # Build
 msg "Build"
 
